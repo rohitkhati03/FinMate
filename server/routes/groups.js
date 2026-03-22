@@ -70,8 +70,13 @@ router.post('/:id/members', auth, async (req, res) => {
 router.post('/:id/expenses', auth, async (req, res) => {
   try {
     const { amount, description, category, splitType, participants, splits: customSplits, date } = req.body;
-    const group = await groupExpenseSchema.findById(req.params.id);
-    if (!group) return res.status(404).json({ message: 'Group not found.' });
+
+    // ✅ FIXED HERE
+    const group = await groupSchema.findById(req.params.id);
+
+    if (!group) {
+      return res.status(404).json({ message: 'Group not found.' });
+    }
 
     const memberIds = participants || group.members.map(m => m.toString());
     let splits = [];
@@ -90,12 +95,16 @@ router.post('/:id/expenses', auth, async (req, res) => {
     const expense = await groupExpenseSchema.create({
       groupId: req.params.id,
       paidBy: req.user.id,
-      amount, description, category,
-      splitType, splits,
+      amount,
+      description,
+      category,
+      splitType,
+      splits,
       date: date || new Date()
     });
 
     res.status(201).json(expense);
+
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
