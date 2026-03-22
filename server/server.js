@@ -1,6 +1,7 @@
 // importing essential modules
 import express from "express";
 import dotenv from "dotenv";
+dotenv.config();
 import mongoose from "mongoose";
 import cors from "cors";
 
@@ -11,14 +12,15 @@ import budgetRoutes from "./routes/budgets.js";
 import groupRoutes from "./routes/groups.js";
 import savingsRoutes from "./routes/savings.js";
 
-dotenv.config();
+
 
 const app = express();
 
 // Middleware
 app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true
+    origin:process.env.CLIENT_URI ||"http://localhost:5174",
+    credentials:true,
+    methods:["GET","POST","PUT","DELETE","PATCH"],
 }));
 
 app.use(express.json());
