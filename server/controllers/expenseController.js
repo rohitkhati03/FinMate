@@ -4,8 +4,9 @@ import { Types } from "mongoose";
 // POST /api/expenses
 export async function addExpense(req, res) {
   try {
+    // Take the data from request body
     const { amount, category, note, date } = req.body;
-
+    // new expense doucument
     const expense = await Expense.create({
       userId: req.user.id,
       amount,
@@ -26,10 +27,11 @@ export async function addExpense(req, res) {
 // GET /api/expenses
 export async function getExpenses(req, res) {
   try {
+    // query parameters(filters)
     const { month, category, startDate, endDate } = req.query;
-
+    //base query only fetch logged-in users's data
     let query = { userId: req.user.id };
-
+    //filter by month(format: YYYY-MM)
     if (month) {
       const [year, m] = month.split("-");
       query.date = {
@@ -37,14 +39,14 @@ export async function getExpenses(req, res) {
         $lte: new Date(year, m, 0, 23, 59, 59)
       };
     }
-
+// filter by cutom date range 
     if (startDate && endDate) {
       query.date = {
         $gte: new Date(startDate),
         $lte: new Date(endDate)
       };
     }
-
+// filtering by category
     if (category) {
       query.category = category;
     }
@@ -66,11 +68,12 @@ export async function getSummary(req, res) {
     const { month } = req.query;
 
     const [year, m] = (month || new Date().toISOString().slice(0, 7)).split("-");
-
+//MongoDB aggregation pipeline
     const summary = await Expense.aggregate([
       {
+        //Match user+date range
         $match: {
-          userId: new Types.ObjectId(req.user.id),
+          userId: new Types.ObjectId(req.user.id), //convert string to OBjectID
           date: {
             $gte: new Date(year, m - 1, 1),
             $lte: new Date(year, m, 0, 23, 59, 59)
