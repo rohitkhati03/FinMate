@@ -1,7 +1,7 @@
 // importing essential modules
-import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
+import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 
@@ -12,16 +12,16 @@ import budgetRoutes from "./routes/budgets.js";
 import groupRoutes from "./routes/groups.js";
 import savingsRoutes from "./routes/savings.js";
 
-
-
 const app = express();
 
 // Middleware
-app.use(cors({
-    origin:process.env.CLIENT_URI ||"http://localhost:5173",
-    credentials:true,
-    methods:["GET","POST","PUT","DELETE","PATCH"],
-}));
+app.use(
+  cors({
+    origin: process.env.CLIENT_URI || "http://localhost:5174",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  }),
+);
 
 app.use(express.json());
 
@@ -34,7 +34,7 @@ app.use("/api/savings", savingsRoutes);
 
 // Health check
 app.get("/", (req, res) => {
-  res.json({ message: "FinMate API Running ✅", version: "1.0.0" });
+  res.json({ message: "FinMate API Running ", version: "1.0.0" });
 });
 
 // 404 handler
@@ -47,23 +47,22 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({
     message: "Internal server error",
-    error: err.message
+    error: err.message,
   });
 });
-
 // Connect DB and start server
 const PORT = process.env.PORT || 7000;
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log("✅ MongoDB Connected");
+    console.log(" MongoDB Connected");
 
     app.listen(PORT, () => {
-      console.log(`✅ Server running on http://localhost:${PORT}`);
+      console.log(` Server running on http://localhost:${PORT}`);
     });
-
   })
   .catch((err) => {
-    console.error("❌ MongoDB Connection Error:", err.message);
+    console.error("MongoDB Connection Error:", err.message);
     process.exit(1);
   });
