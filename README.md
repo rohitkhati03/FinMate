@@ -34,6 +34,11 @@ FinMate allows individuals and groups to monitor their financial activities, ana
 - Deposit and withdraw funds
 - Track savings progress
 
+### 💸 Payemnt
+- Make payment 
+- See the latest transaction
+- Track the payemnt status
+
 ---
 
 ## 🛠 Tech Stack
@@ -53,6 +58,9 @@ FinMate allows individuals and groups to monitor their financial activities, ana
 ### Database
 - MongoDB (Atlas)
 
+### Payment gateway
+- Razorpay
+
 ---
 
 ## 📂 Project Structure
@@ -62,14 +70,15 @@ FinMate
 │ ├── src
 │ └── package.json
 │
-├── server
+├── server  
 │ ├── controllers
 │ ├── middleware
 │ ├── models
 │ ├── routes
 │ ├── utils
-│ └── server.js
+│ └── config
 │
 ├── .env.example
 ├── .gitignore
+├── server.js
 └── README.md
