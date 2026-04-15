@@ -32,7 +32,7 @@ export const validateRegister=[
     .withMessage("Email is required")
     .isEmail()
     .withMessage("Please provide a valid email")
-    .normalizEmail(),
+    .normalizeEmail(),
 
     body("password")
     .notEmpty()
@@ -46,9 +46,9 @@ export const validateRegister=[
     .matches(/[0-9]/)
     .withMessage("Password must contain at least one number ")
     .matches(/[!@#$%^&*]/)
-    .withMessage(" Password must contian atleast one special character (!@#$%^&*)")
+    .withMessage(" Password must contian atleast one special character (!@#$%^&*)"),
 
-    .body("phone")
+    body("phone")
     .notEmpty()
     .withMessage("Phone is required")
     .matches(/[0-9]/)
@@ -66,7 +66,7 @@ export const validateLogin = [
     .withMessage("Email  is requied")
     .isEmail()
     .withMessage("Please provide a valid email")
-    .normalizEmail(),
+    .normalizeEmail(),
 
     body("password")
     .notEmpty()

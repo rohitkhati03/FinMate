@@ -4,7 +4,7 @@ import rateLimit from "express-rate-limit";
 //register rate limit 3 attempts per hour
 export const registerLimit = rateLimit({
     windowMs:60*60*1000,
-    max:3,
+    max:6,
     message:{
         sucess: false,
         message:"Too many request. Please try again after some time",

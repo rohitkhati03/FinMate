@@ -27,6 +27,6 @@ export default async function sendEmail(to, otp) {
     `,
   });
 
-  // ✅ Open this URL in browser to see your OTP
+  //  Open this URL in browser to see  OTP
   console.log("📧 View OTP email here:", nodemailer.getTestMessageUrl(info));
 }

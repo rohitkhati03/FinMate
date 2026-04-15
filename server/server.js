@@ -4,7 +4,7 @@ dotenv.config();
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-
+import helmet from "helmet";
 // importing routes
 import authRoutes from "./routes/auth.js";
 import expenseRoutes from "./routes/expenses.js";
@@ -28,7 +28,7 @@ app.use(
 );
 
 //Mongo santizer - preventing mongo injection
-app.use(ExpressMongoSanitize());
+// app.use(ExpressMongoSanitize());
 const globalLimiter = rateLimit({
   windowMs:15*60*100, // 15 min
   max:100,
