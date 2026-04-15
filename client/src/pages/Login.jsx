@@ -29,7 +29,7 @@ export default function Login() {
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)', padding: 16 }}>
       <div style={{ width: '100%', maxWidth: 420 }}>
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
-          <div style={{ width: 60, height: 60, background: 'var(--primary)', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, margin: '0 auto 16px' }}>💰</div>
+          <div style={{ width: 60, height: 60, background: 'var(--primary)', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, margin: '0 auto 16px', cursor:'pointer' }} onClick={() => navigate("/")}>💰</div>
           <h1 style={{ fontSize: 28, fontWeight: 800, letterSpacing: '-1px' }}>FinMate</h1>
           <p style={{ color: 'var(--text-muted)', marginTop: 4 }}>Your smart finance companion</p>
         </div>

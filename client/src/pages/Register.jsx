@@ -3,22 +3,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../api';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
-
+import "../style/register.css"
 export default function Register() {
-  const [form,    setForm]    = useState({ name: '', email: '', password: '', currency: 'INR' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', password: '', currency: 'INR' });
   const [loading, setLoading] = useState(false);
-  const { login }  = useAuth();
-  const navigate   = useNavigate();
+  // const { login }  = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (form.password.length < 6) return toast.error('Password must be at least 6 characters');
+    if (form.password.length < 8) return toast.error('Password must be at least 8 characters');
     setLoading(true);
     try {
       const res = await registerUser(form);
-      login(res.data.token, res.data.user);
-      toast.success(`Welcome to FinMate, ${res.data.user.name}! 🎉`);
-      navigate('/');
+      toast.success('OTP sent to your email and phone ');
+
+      navigate('/verify-otp', { state: { email: res.data.email } });
     } catch (err) {
       toast.error(err.response?.data?.message || 'Registration failed');
     } finally {
@@ -27,30 +27,55 @@ export default function Register() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)', padding: 16 }}>
-      <div style={{ width: '100%', maxWidth: 420 }}>
-        <div style={{ textAlign: 'center', marginBottom: 40 }}>
-          <div style={{ width: 60, height: 60, background: 'var(--primary)', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, margin: '0 auto 16px' }}>💰</div>
-          <h1 style={{ fontSize: 28, fontWeight: 800, letterSpacing: '-1px' }}>Join FinMate</h1>
-          <p style={{ color: 'var(--text-muted)', marginTop: 4 }}>Track smarter, save better</p>
-        </div>
-        <div className="card">
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 24 }}>Create your account</h2>
+    <div className="auth-container" style={{ position: "relative", overflow: "hidden" }}>
+
+  {/* 🔥 BACKGROUND STICKERS */}
+  <div className="bg-sticker blue"></div>
+  <div className="bg-sticker purple"></div>
+  <div className="bg-sticker center"></div>
+
+  <div style={{ width: '100%', maxWidth: 420, position: "relative", zIndex: 2 }}>
+
+    <div style={{ textAlign: 'center', marginBottom: 40 }}>
+      <div className="auth-logo" onClick={() => navigate("/")}>💰</div>
+
+      <h1 style={{ fontSize: 28, fontWeight: 800 }}>Join FinMate</h1>
+      <p style={{ color: 'var(--text-muted)', marginTop: 4 }}>
+        Track smarter, save better
+      </p>
+    </div>
+
+    <div className="card">
+      <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 24 }}>
+        Create your account
+      </h2>
+          {/* FORM SAME AS YOUR CODE */}
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label className="label">Full Name</label>
               <input className="input" placeholder="Arjun Sharma"
-                value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required/>
+                value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required />
             </div>
             <div className="form-group">
               <label className="label">Email</label>
               <input className="input" type="email" placeholder="you@example.com"
-                value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required/>
+                value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
+            </div>
+            <div className="form-group">
+              <label className="label">Phone Number</label>
+              <input
+                className="input"
+                type="tel"
+                placeholder="+91XXXXXXXXXX"  // ✅ reminds user to add +91
+                value={form.phone}
+                onChange={e => setForm({ ...form, phone: e.target.value })}
+                required
+              />
             </div>
             <div className="form-group">
               <label className="label">Password</label>
               <input className="input" type="password" placeholder="Min 6 characters"
-                value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} required/>
+                value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} required />
             </div>
             <div className="form-group">
               <label className="label">Currency</label>
@@ -65,12 +90,13 @@ export default function Register() {
               {loading ? 'Creating account...' : 'Create Account'}
             </button>
           </form>
-          <p style={{ textAlign: 'center', marginTop: 20, fontSize: 14, color: 'var(--text-muted)' }}>
-            Already have an account?{' '}
-            <Link to="/login" style={{ color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>Sign in</Link>
-          </p>
-        </div>
-      </div>
+         <p style={{ textAlign: 'center', marginTop: 20, fontSize: 14 }}>
+        Already have an account?{" "}
+        <Link to="/login" className="auth-link">Log in</Link>
+      </p>
     </div>
+
+  </div>
+</div>
   );
 }
