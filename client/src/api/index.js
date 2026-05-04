@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:7000/api'
+  baseURL: import.meta.env.VITE_API_URL || 'https://finmate-2t8u.onrender.com'
 });
 
 API.interceptors.request.use((config) => {
