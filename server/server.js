@@ -21,7 +21,7 @@ app.use(helmet());
 // Middleware
 app.use(
   cors({
-    origin: process.env.CLIENT_URI || "http://localhost:5173",
+    origin: process.env.CLIENT_URI || "finmatelive.netlify.app",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   }),
