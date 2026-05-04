@@ -21,7 +21,7 @@ app.use(helmet());
 // Middleware
 app.use(
   cors({
-    origin: process.env.CLIENT_URI || "https://fin-mate-one.vercel.app/",
+    origin: process.env.CLIENT_URI || "https://fin-mate-one.vercel.app",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   }),
