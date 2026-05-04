@@ -24,11 +24,15 @@ API.interceptors.response.use(
 // ── Auth ──
 export const registerUser  = (data)  => API.post('/auth/register', data);
 export const loginUser     = (data)  => API.post('/auth/login', data);
-export const verifyOtp  = (data) => axios.post('/auth/verify-otp', data);
-export const resendOtp  = (data) => axios.post('/auth/resend-otp', data);
 export const getMe         = ()      => API.get('/auth/me');
 export const updateProfile = (data)  => API.put('/auth/profile', data);
+//  Forgot Password
+export const forgotPassword = (data) =>
+  API.post('/auth/forgot-password', data);
 
+//  Reset Password
+export const resetPassword = (token, data) =>
+  API.post(`/auth/reset-password/${token}`, data);
 // ── Expenses ──
 export const addExpense       = (data)   => API.post('/expenses', data);
 export const getExpenses      = (params) => API.get('/expenses', { params });

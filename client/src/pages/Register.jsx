@@ -16,9 +16,9 @@ export default function Register() {
     setLoading(true);
     try {
       const res = await registerUser(form);
-      toast.success('OTP sent to your email and phone ');
+      toast.success('Account created successfully ');
 
-      navigate('/verify-otp', { state: { email: res.data.email } });
+      navigate('/dashboard', { state: { email: res.data.email } });
     } catch (err) {
       toast.error(err.response?.data?.message || 'Registration failed');
     } finally {
@@ -37,7 +37,7 @@ export default function Register() {
   <div style={{ width: '100%', maxWidth: 420, position: "relative", zIndex: 2 }}>
 
     <div style={{ textAlign: 'center', marginBottom: 40 }}>
-      <div className="auth-logo" onClick={() => navigate("/")}>💰</div>
+      <div className="auth-logo" onClick={() => navigate("/dashboard")}>💰</div>
 
       <h1 style={{ fontSize: 28, fontWeight: 800 }}>Join FinMate</h1>
       <p style={{ color: 'var(--text-muted)', marginTop: 4 }}>

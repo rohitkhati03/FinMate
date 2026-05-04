@@ -8,7 +8,7 @@ import Loader from './components/Loader';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
-import VerifyOTP from './pages/VerifyOTP';
+
 
 import Dashboard from './pages/Dashboard';
 import Expenses from './pages/Expenses';
@@ -16,6 +16,7 @@ import Groups from './pages/Groups';
 import GroupDetail from './pages/GroupDetail';
 import Savings from './pages/Savings';
 import Analytics from './pages/Analytics';
+import ForgotPassword from './pages/Forgot';
 
 
 // 🔐 Protected Layout
@@ -48,52 +49,55 @@ const AppRoutes = () => {
       {/* 🌐 PUBLIC ROUTES */}
       <Route path="/" element={<FinmateLanding />} />
 
-      <Route 
-        path="/login" 
-        element={!user ? <Login /> : <Navigate to="/dashboard" />} 
+      <Route
+        path="/login"
+        element={!user ? <Login /> : <Navigate to="/dashboard" />}
       />
 
-      <Route 
-        path="/register" 
-        element={!user ? <Register /> : <Navigate to="/dashboard" />} 
+      <Route
+        path="/register"
+        element={!user ? <Register /> : <Navigate to="/dashboard" />}
       />
 
-      <Route path="/verify-otp" element={<VerifyOTP />} />
+
 
 
       {/* 🔒 PROTECTED ROUTES */}
-      <Route 
-        path="/dashboard" 
-        element={<ProtectedLayout><Dashboard /></ProtectedLayout>} 
+      <Route
+        path="/dashboard"
+        element={<ProtectedLayout><Dashboard /></ProtectedLayout>}
       />
 
-      <Route 
-        path="/expenses" 
-        element={<ProtectedLayout><Expenses /></ProtectedLayout>} 
+      <Route
+        path="/expenses"
+        element={<ProtectedLayout><Expenses /></ProtectedLayout>}
       />
 
-      <Route 
-        path="/groups" 
-        element={<ProtectedLayout><Groups /></ProtectedLayout>} 
+      <Route
+        path="/groups"
+        element={<ProtectedLayout><Groups /></ProtectedLayout>}
       />
 
-      <Route 
-        path="/groups/:id" 
-        element={<ProtectedLayout><GroupDetail /></ProtectedLayout>} 
+      <Route
+        path="/groups/:id"
+        element={<ProtectedLayout><GroupDetail /></ProtectedLayout>}
       />
 
-      <Route 
-        path="/savings" 
-        element={<ProtectedLayout><Savings /></ProtectedLayout>} 
+      <Route
+        path="/savings"
+        element={<ProtectedLayout><Savings /></ProtectedLayout>}
       />
 
-      <Route 
-        path="/analytics" 
-        element={<ProtectedLayout><Analytics /></ProtectedLayout>} 
+      <Route
+        path="/analytics"
+        element={<ProtectedLayout><Analytics /></ProtectedLayout>}
       />
 
-
-      {/* ❌ FALLBACK */}
+      <Route
+        path="/forgot-password"
+        element={!user ? <ForgotPassword /> : <Navigate to="/dashboard" />}
+      />
+      {/*  FALLBACK */}
       <Route path="*" element={<Navigate to="/" />} />
 
     </Routes>

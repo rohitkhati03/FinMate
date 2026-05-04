@@ -30,7 +30,7 @@ app.use(
 //Mongo santizer - preventing mongo injection
 // app.use(ExpressMongoSanitize());
 const globalLimiter = rateLimit({
-  windowMs:15*60*100, // 15 min
+  windowMs:15*60*1000, // 15 min
   max:100,
   message:{
     success:false,

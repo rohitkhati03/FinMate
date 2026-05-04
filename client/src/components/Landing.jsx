@@ -278,38 +278,53 @@ const styles = `
   }
 `;
 
-const bars = [35, 58, 42, 72, 50, 88, 65, 95, 55, 80, 70, 100];
+const bars = [20, 35, 30, 45, 40, 50, 55, 60, 48, 52, 58, 65];
 
 const features = [
-  { icon: "📊", name: "Smart Budgeting", desc: "AI adapts your budget based on real spending patterns each month." },
-  { icon: "⚡", name: "Auto Tracking", desc: "Every transaction auto-categorized — zero manual entry required." },
-  { icon: "🎯", name: "Goal Planner", desc: "Set milestones. Get smart projections. Hit targets faster." },
-  { icon: "📈", name: "Investment Watch", desc: "Monitor your portfolio, returns, and market pulse in one place." },
-  { icon: "🔔", name: "Bill Alerts", desc: "Smart reminders so you never pay a late fee again." },
-  { icon: "🔐", name: "Bank-grade Security", desc: "256-bit encryption with biometric authentication on every login." },
+  { icon: "📊", name: "Expense Tracking", desc: "Track your daily expenses and view them in a simple dashboard." },
+  { icon: "⚡", name: "Manual Entry", desc: "Add and categorize your expenses easily." },
+  { icon: "🎯", name: "Savings Goal", desc: "Set saving goals and monitor progress." },
+  { icon: "📈", name: "Basic Analytics", desc: "View charts of your income and expenses." },
+  { icon: "👥", name: "Group Expenses", desc: "Split expenses with friends or family." },
+  { icon: "🔐", name: "Secure Login", desc: "JWT-based authentication for secure access." },
 ];
 
 const testimonials = [
-  { text: "Finmate is the only finance app I've actually kept using. Clean, fast, and just works. Paid off my card in 4 months.", name: "Priya S.", role: "Freelance Designer", init: "P" },
-  { text: "The investment tracker syncs everything and gives me a clear picture without drowning me in data. Exactly what I needed.", name: "Rahul M.", role: "Software Engineer", init: "R" },
-  { text: "I've tried six finance apps. This is the first one that felt built for someone like me. Simple, powerful, no fluff.", name: "Ananya K.", role: "Product Manager", init: "A" },
+  { text: "This app helped me manage my daily expenses during college.", name: "Amit Kumar", role: "BCA Student", init: "A" },
+  { text: "Group expense feature is very useful during trips with friends.", name: "Neha Singh", role: "Student", init: "N" },
+  { text: "Clean and simple interface, easy to use.", name: "Rahul Verma", role: "Student", init: "R" },
 ];
 
 const plans = [
-  { tier:"Starter", price:"₹0", desc:"Free forever", feats:["3 accounts linked","Basic expense tracking","Monthly summary report","Email support"], pBtn:"pbtn-o", label:"Get Started" },
-  { tier:"Pro", price:"₹49", desc:"/ month · billed monthly", feats:["Unlimited accounts"," Budget suggestions","Goal & investment tracking","Priority support","Export reports"], pBtn:"pbtn-s", label:"Start Free Trial", featured:true },
-  { tier:"Family", price:"₹99", desc:"/ month · up to 5 members", feats:["Everything in Pro","5 member profiles","Shared budget boards","Family spending insights","Dedicated advisor"], pBtn:"pbtn-o", label:"Start Free Trial" },
+  {
+    tier: "Free Plan",
+    price: "₹0",
+    desc: "For academic use",
+    feats: [
+      "User registration & login",
+      "Expense tracking",
+      "Group expense feature",
+      "Basic analytics"
+    ],
+    pBtn: "pbtn-s",
+    label: "Start Using"
+  }
 ];
+
+/*  COMPONENT  */
 
 export default function FinmateLanding() {
   const [scrolled, setScrolled] = useState(false);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", fn);
     return () => window.removeEventListener("scroll", fn);
   }, []);
-  const go = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+
+  const go = (id) =>
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <>
@@ -321,41 +336,80 @@ export default function FinmateLanding() {
           <div className="logo-icon">💰</div>
           <span className="logo-name">FinMate</span>
         </div>
+
         <div className="nav-links">
           <a onClick={() => go("features")}>Features</a>
           <a onClick={() => go("how")}>How it works</a>
           <a onClick={() => go("pricing")}>Pricing</a>
-          <button className="nav-btn"  onClick={() => navigate("/register")}>Get Started</button>
+          <button className="nav-btn" onClick={() => navigate("/register")}>
+            Get Started
+          </button>
         </div>
       </nav>
 
       {/* HERO */}
       <section className="hero">
         <div className="hero-glow" />
+
         <div className="hero-left">
-          <div className="hero-badge"><span />Now in beta · 12,000+ users joined</div>
-          <h1>Your smart<br /><span className="accent">finance</span> companion</h1>
-          <p>Finmate tracks your spending, manages budgets, and grows your savings — beautifully, automatically, and securely.</p>
+          <div className="hero-badge">
+            <span /> Finance Tracker
+          </div>
+
+          <h1>
+            Your simple <br />
+            <span className="accent">finance</span> tracker
+          </h1>
+
+          <p>
+            FinMate is a web application that helps users track expenses,
+            manage budgets, and analyze spending habits using simple tools.
+          </p>
+
           <div className="hero-actions">
-            <button className="btn-primary" onClick={() => go("cta")}>Start for free</button>
-            <button className="btn-ghost" onClick={() => go("features")}>See features →</button>
+            <button className="btn-primary" onClick={() => go("cta")}>
+              Start
+            </button>
+            <button className="btn-ghost" onClick={() => go("features")}>
+              See features →
+            </button>
           </div>
         </div>
+
+        {/* DASHBOARD */}
         <div className="hero-right">
           <div className="dash-card">
             <div className="dash-header">
-              <span className="dash-title">Total Balance</span>
-              <span className="dash-tag">↑ +8.4% this month</span>
+              <span className="dash-title">Sample Balance</span>
+              <span className="dash-tag">Demo Data</span>
             </div>
-            <div className="dash-balance">₹2,48,650</div>
-            <div className="dash-sub">Across 4 linked accounts</div>
+
+            <div className="dash-balance">₹25,000</div>
+            <div className="dash-sub">Example monthly overview</div>
+
             <div className="mini-bars">
-              {bars.map((h, i) => <div key={i} className={`mbar${i === bars.length - 1 ? " hi" : ""}`} style={{ height: `${h}%` }} />)}
+              {bars.map((h, i) => (
+                <div
+                  key={i}
+                  className={`mbar${i === bars.length - 1 ? " hi" : ""}`}
+                  style={{ height: `${h}%` }}
+                />
+              ))}
             </div>
+
             <div className="dash-stats">
-              <div className="dstat"><div className="dstat-label">Income</div><div className="dstat-val g">+₹85K</div></div>
-              <div className="dstat"><div className="dstat-label">Expenses</div><div className="dstat-val r">−₹36K</div></div>
-              <div className="dstat"><div className="dstat-label">Saved</div><div className="dstat-val">₹48K</div></div>
+              <div className="dstat">
+                <div className="dstat-label">Income</div>
+                <div className="dstat-val g">+₹10K</div>
+              </div>
+              <div className="dstat">
+                <div className="dstat-label">Expenses</div>
+                <div className="dstat-val r">−₹6K</div>
+              </div>
+              <div className="dstat">
+                <div className="dstat-label">Saved</div>
+                <div className="dstat-val">₹4K</div>
+              </div>
             </div>
           </div>
         </div>
@@ -363,8 +417,16 @@ export default function FinmateLanding() {
 
       {/* STATS */}
       <div className="stats-strip">
-        {[["12K+","Active users"],["₹4.2Cr","Tracked monthly"],["98%","Uptime SLA"],["4.9★","User rating"]].map(([n,d],i)=>(
-          <div className="sstat" key={i}><div className="sstat-n">{n}</div><div className="sstat-d">{d}</div></div>
+        {[
+          ["Real-time", "Expense tracking"],
+          ["Simple UI", "Easy to use"],
+          ["Secure", "JWT authentication"],
+          ["Project", "Academic use"]
+        ].map(([n, d], i) => (
+          <div className="sstat" key={i}>
+            <div className="sstat-n">{n}</div>
+            <div className="sstat-d">{d}</div>
+          </div>
         ))}
       </div>
 
@@ -373,11 +435,16 @@ export default function FinmateLanding() {
         <div className="features-layout">
           <div>
             <div className="sec-label">Features</div>
-            <h2 className="sec-title">Everything you need.<br />Nothing you don't.</h2>
-            <p className="sec-sub">Built for clarity over complexity. Every feature earns its place in your financial life.</p>
+            <h2 className="sec-title">
+              Features of the <br /> application
+            </h2>
+            <p className="sec-sub">
+              This project provides basic tools to manage personal finances.
+            </p>
           </div>
+
           <div className="feat-grid">
-            {features.map((f,i)=>(
+            {features.map((f, i) => (
               <div className="feat-card" key={i}>
                 <div className="feat-icon">{f.icon}</div>
                 <div className="feat-name">{f.name}</div>
@@ -391,13 +458,14 @@ export default function FinmateLanding() {
       {/* HOW */}
       <section id="how" className="how">
         <div className="sec-label">Process</div>
-        <h2 className="sec-title">Up and running in minutes.</h2>
+        <h2 className="sec-title">How it works</h2>
+
         <div className="steps">
           {[
-            {n:"01",t:"Connect Accounts",d:"Link your bank accounts, cards, and wallets securely via 256-bit encryption. Done in under 2 minutes."},
-            {n:"02",t:"Set Your Goals",d:"Tell Finmate what you're saving for. We'll build a smart plan and adjust it as your life changes."},
-            {n:"03",t:"Watch It Work",d:"Automated tracking, smart nudges, and real-time insights — all without lifting a finger."},
-          ].map((s,i)=>(
+            { n: "01", t: "Register Account", d: "Create account using email and password." },
+            { n: "02", t: "Add Expenses", d: "Add your daily expenses and categorize them." },
+            { n: "03", t: "View Reports", d: "Analyze your spending using charts." },
+          ].map((s, i) => (
             <div className="step" key={i}>
               <div className="step-circle">{s.n}</div>
               <div className="step-title">{s.t}</div>
@@ -409,16 +477,21 @@ export default function FinmateLanding() {
 
       {/* TESTIMONIALS */}
       <section id="testimonials" className="testimonials">
-        <div className="sec-label">Testimonials</div>
-        <h2 className="sec-title">People who made the switch.</h2>
+        <div className="sec-label">Feedback</div>
+        <h2 className="sec-title">User Feedback</h2>
+
         <div className="tgrid">
-          {testimonials.map((t,i)=>(
+          {testimonials.map((t, i) => (
             <div className="tcard" key={i}>
               <div className="stars">★★★★★</div>
               <p className="ttext">"{t.text}"</p>
+
               <div className="tauthor">
                 <div className="tavatar">{t.init}</div>
-                <div><div className="tname">{t.name}</div><div className="trole">{t.role}</div></div>
+                <div>
+                  <div className="tname">{t.name}</div>
+                  <div className="trole">{t.role}</div>
+                </div>
               </div>
             </div>
           ))}
@@ -427,20 +500,26 @@ export default function FinmateLanding() {
 
       {/* PRICING */}
       <section id="pricing" className="pricing">
-        <div className="sec-label">Pricing</div>
-        <h2 className="sec-title">Simple, honest pricing.</h2>
-        <p className="sec-sub">No hidden fees. Cancel anytime. Start free and upgrade when ready.</p>
+        <div className="sec-label">Project</div>
+        <h2 className="sec-title">Project Features</h2>
+
         <div className="pgrid">
-          {plans.map((p,i)=>(
-            <div className={`pcard${p.featured?" featured":""}`} key={i}>
-              {p.featured && <span className="pbadge">Most Popular</span>}
+          {plans.map((p, i) => (
+            <div className="pcard featured" key={i}>
               <div className="ptier">{p.tier}</div>
               <div className="pamount">{p.price}</div>
               <div className="pdesc">{p.desc}</div>
+
               <ul className="pfeatures">
-                {p.feats.map((f,j)=><li className="pfeat" key={j}><span className="pdot"/>{f}</li>)}
+                {p.feats.map((f, j) => (
+                  <li className="pfeat" key={j}>
+                    <span className="pdot" />
+                    {f}
+                  </li>
+                ))}
               </ul>
-              <button className={`pbtn ${p.pBtn}`}>{p.label}</button>
+
+              <button className={`pbtn ${p.pBtn}`} onClick={() => navigate("/register")}>{p.label}</button>
             </div>
           ))}
         </div>
@@ -448,39 +527,29 @@ export default function FinmateLanding() {
 
       {/* CTA */}
       <section id="cta" className="cta">
-        <div className="cta-glow"/>
+        <div className="cta-glow" />
+
         <div className="cta-inner">
           <div className="sec-label">Get Started</div>
-          <h2>Take control of your finances today.</h2>
-          <p>Join thousands who've simplified their financial life with Finmate. No credit card required to start.</p>
+          <h2>Start using FinMate</h2>
+
+          <p>
+            Use this project to track expenses and understand financial management basics.
+          </p>
+
           <div className="cta-btns">
-            <button className="btn-primary"  onClick={() => navigate("/register")}>Create free account</button>
-            <button className="btn-ghost">Book a demo →</button>
+            <button className="btn-primary" onClick={() => navigate("/register")}>
+              Create Account
+            </button>
           </div>
         </div>
       </section>
 
       {/* FOOTER */}
       <footer>
-        <div className="footer-top">
-          <div className="fbrand">
-            <div className="logo"><div className="logo-icon">💰</div><span className="logo-name">FinMate</span></div>
-            <p>A minimal finance companion built for clarity, control, and confidence.</p>
-          </div>
-          {[
-            {h:"Product",links:["Features","Pricing","Changelog","Roadmap"]},
-            {h:"Company",links:["About","Blog","Careers","Press"]},
-            {h:"Legal",links:["Privacy","Terms","Security","Cookies"]},
-          ].map((col,i)=>(
-            <div className="fcol" key={i}>
-              <h4>{col.h}</h4>
-              {col.links.map((l,j)=><a key={j}>{l}</a>)}
-            </div>
-          ))}
-        </div>
         <div className="footer-bottom">
-          <p>© 2025 FinMate. All rights reserved.</p>
-          <p>Made with <span>♥</span> in Dehradun, India</p>
+          <p>© 2026 FinMate</p>
+          <p>Made for learning full-stack development</p>
         </div>
       </footer>
     </>

@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { LayoutDashboard, Receipt, Users, PiggyBank, BarChart2, LogOut, Menu, X } from 'lucide-react';
 
 const NAV = [
-  { path: '/',          icon: LayoutDashboard, label: 'Dashboard' },
+  { path: '/dashboard',          icon: LayoutDashboard, label: 'Dashboard' },
   { path: '/expenses',  icon: Receipt,         label: 'Expenses'  },
   { path: '/groups',    icon: Users,           label: 'Groups'    },
   { path: '/savings',   icon: PiggyBank,       label: 'Savings'   },

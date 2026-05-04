@@ -5,19 +5,27 @@ import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 
 export default function Login() {
-  const [form,    setForm]    = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
-  const { login }  = useAuth();
-  const navigate   = useNavigate();
+
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     try {
       const res = await loginUser(form);
+
+      // ✅ Save auth in context
       login(res.data.token, res.data.user);
+
       toast.success(`Welcome back, ${res.data.user.name}! 👋`);
-      navigate('/');
+
+      // ✅ FIX: redirect to dashboard
+      navigate('/dashboard');
+
     } catch (err) {
       toast.error(err.response?.data?.message || 'Login failed');
     } finally {
@@ -28,32 +36,105 @@ export default function Login() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)', padding: 16 }}>
       <div style={{ width: '100%', maxWidth: 420 }}>
+
+        {/* HEADER */}
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
-          <div style={{ width: 60, height: 60, background: 'var(--primary)', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, margin: '0 auto 16px', cursor:'pointer' }} onClick={() => navigate("/")}>💰</div>
-          <h1 style={{ fontSize: 28, fontWeight: 800, letterSpacing: '-1px' }}>FinMate</h1>
-          <p style={{ color: 'var(--text-muted)', marginTop: 4 }}>Your smart finance companion</p>
+          <div
+            style={{
+              width: 60,
+              height: 60,
+              background: 'var(--primary)',
+              borderRadius: 16,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 28,
+              margin: '0 auto 16px',
+              cursor: 'pointer'
+            }}
+            onClick={() => navigate("/")}
+          >
+            💰
+          </div>
+
+          <h1 style={{ fontSize: 28, fontWeight: 800 }}>FinMate</h1>
+          <p style={{ color: 'var(--text-muted)', marginTop: 4 }}>
+            Your personal finance tracker
+          </p>
         </div>
+
+        {/* CARD */}
         <div className="card">
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 24 }}>Welcome back</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 24 }}>
+            Welcome back
+          </h2>
+
           <form onSubmit={handleSubmit}>
+
+            {/* EMAIL */}
             <div className="form-group">
               <label className="label">Email</label>
-              <input className="input" type="email" placeholder="you@example.com"
-                value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required/>
+              <input
+                className="input"
+                type="email"
+                placeholder="you@gmail.com"
+                value={form.email}
+                onChange={e => setForm({ ...form, email: e.target.value })}
+                required
+              />
             </div>
+
+            {/* PASSWORD */}
             <div className="form-group">
               <label className="label">Password</label>
-              <input className="input" type="password" placeholder="••••••••"
-                value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} required/>
+              <input
+                className="input"
+                type="password"
+                placeholder="••••••••"
+                value={form.password}
+                onChange={e => setForm({ ...form, password: e.target.value })}
+                required
+              />
             </div>
-            <button className="btn btn-primary" type="submit" disabled={loading}
-              style={{ width: '100%', justifyContent: 'center', padding: '12px', marginTop: 8 }}>
+
+            {/* 🔥 FORGOT PASSWORD LINK */}
+            <div style={{ textAlign: 'right', marginBottom: 12 }}>
+              <Link
+                to="/forgot-password"
+                style={{
+                  fontSize: 13,
+                  color: 'var(--primary)',
+                  textDecoration: 'none'
+                }}
+              >
+                Forgot Password?
+              </Link>
+            </div>
+            {/* BUTTON */}
+            <button
+              className="btn btn-primary"
+              type="submit"
+              disabled={loading}
+              style={{ width: '100%', padding: '12px', marginTop: 8 }}
+            >
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
+
           </form>
-          <p style={{ textAlign: 'center', marginTop: 20, fontSize: 14, color: 'var(--text-muted)' }}>
+
+          {/* REGISTER LINK */}
+          <p style={{ textAlign: 'center', marginTop: 20, fontSize: 14 }}>
             Don't have an account?{' '}
-            <Link to="/register" style={{ color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>Sign up free</Link>
+            <Link
+              to="/register"
+              style={{
+                color: 'var(--primary)',
+                fontWeight: 600,
+                textDecoration: 'none'
+              }}
+            >
+              Sign up free
+            </Link>
           </p>
         </div>
       </div>
