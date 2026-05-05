@@ -7,8 +7,8 @@ import { validateLogin, validateRegister } from "../middleware/validation.middle
 const router = express.Router();
 //POST /api/auth/register 
 
-router.post("/register",  registerLimit, validateRegister, register)
-router.post("/login",loginLimit,validateLogin, login);
+router.post("/register", register)
+router.post("/login", login);
 router.get("/me", auth, getMe);
 router.put("/profile", auth, updateProfile);
 router.post("/forgot-password", forgotPassword);

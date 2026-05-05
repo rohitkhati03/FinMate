@@ -19,32 +19,10 @@ const app = express();
 //helmet
 app.use(helmet());
 // Middleware
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
-
-    const allowed = [
-      'http://localhost:5173',
-      'https://fin-mate-one.vercel.app',
-      'https://fin-mate-git-main-rohitkhati03s-projects.vercel.app'
-    ];
-
-    const isVercelPreview = /^https:\/\/fin-mate.*\.vercel\.app$/.test(origin);
-
-    if (allowed.includes(origin) || isVercelPreview) {
-      callback(null, true);
-    } else {
-      console.log('CORS blocked origin:', origin);
-      callback(null, false); // ✅ FIXED
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-};
-
-// ✅ MUST be before routes
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
 
 
 //Mongo santizer - preventing mongo injection
