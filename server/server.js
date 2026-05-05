@@ -35,7 +35,7 @@ const corsOptions = {
       callback(null, true);
     } else {
       console.log('CORS blocked origin:', origin);
-      callback(new Error('CORS blocked: ' + origin));
+      callback(null, false); // ✅ FIXED
     }
   },
   credentials: true,
@@ -43,7 +43,9 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization']
 };
 
+// ✅ MUST be before routes
 app.use(cors(corsOptions));
+
 
 //Mongo santizer - preventing mongo injection
 // app.use(ExpressMongoSanitize());
