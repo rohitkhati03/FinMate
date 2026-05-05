@@ -21,14 +21,20 @@ app.use(helmet());
 // Middleware
 const corsOptions = {
   origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+
     const allowed = [
       'http://localhost:5173',
-      'https://fin-mate-one.vercel.app'
+      'https://fin-mate-one.vercel.app',
+      'https://fin-mate-git-main-rohitkhati03s-projects.vercel.app'
     ];
-    // Allow requests with no origin (Postman, mobile)
-    if (!origin || allowed.includes(origin)) {
+
+    const isVercelPreview = /^https:\/\/fin-mate.*\.vercel\.app$/.test(origin);
+
+    if (allowed.includes(origin) || isVercelPreview) {
       callback(null, true);
     } else {
+      console.log('CORS blocked origin:', origin);
       callback(new Error('CORS blocked: ' + origin));
     }
   },
@@ -38,7 +44,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // ← handles preflight
 
 //Mongo santizer - preventing mongo injection
 // app.use(ExpressMongoSanitize());
